@@ -36,7 +36,7 @@ namespace Jellyfin.Plugin.DlnaServer
         private readonly ILogger<DlnaServerManager> _logger;
         private readonly INetworkManager _networkManager;
         private readonly IServerApplicationHost _appHost;
-        private readonly NetworkConfiguration _networkConfiguration;
+        private readonly NetworkConfiguration _netConfig;
         private readonly SsdpServerPublisher _publisher;
         private readonly string _serverId;
         private bool _isDisposed;
@@ -80,7 +80,7 @@ namespace Jellyfin.Plugin.DlnaServer
             _appHost = appHost;
 
             _logger = logger;
-            _networkConfiguration = (NetworkConfiguration)(configuration?.GetConfiguration("network") ?? throw new ArgumentNullException(nameof(configuration)));
+            _netConfig = (NetworkConfiguration)(configuration?.GetConfiguration("network") ?? throw new ArgumentNullException(nameof(configuration)));
 
             var config = DlnaServerPlugin.Instance!.Configuration;
             _logger.LogDebug("DLNA Server : Starting Content Directory service.");
@@ -205,19 +205,16 @@ namespace Jellyfin.Plugin.DlnaServer
                 _logger.LogInformation("Registering publisher for {Service} on {Address}", FullService, address);
 
                 UriBuilder uri;
-                if (SsdpServer.DlnaVersion == DlnaVersion.Version2)
+                uri = new UriBuilder(_appHost.GetSmartApiUrl(address.Address) + descriptorUri);
+
+                if (SsdpServer.DlnaVersion != DlnaVersion.Version2)
                 {
-                    // Very experimental.
-                    uri = new UriBuilder(_appHost.GetSmartApiUrl(address.Address) + descriptorUri);
-                }
-                else
-                {
-                    uri = new UriBuilder(_appHost.GetSmartApiUrl(address.Address) + descriptorUri)
+                    if (_appHost.PublishedServerUrl == null)
                     {
-                        // DLNA 1.1 only operates over http.
-                        Scheme = "http://",
-                        Port = _networkConfiguration.HttpServerPortNumber
-                    };
+                        // DLNA will only work over http, so we must reset to http:// : {port}.
+                        uri.Scheme = "http";
+                        uri.Port = _netConfig.HttpServerPortNumber;
+                    }
                 }
 
                 SsdpRootDevice device = new SsdpRootDevice(
