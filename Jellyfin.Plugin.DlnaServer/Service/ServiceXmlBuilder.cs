@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
+using Jellyfin.Plugin.Ssdp.Didl;
 using Jellyfin.Plugin.Ssdp.Model;
 
 namespace Jellyfin.Plugin.DlnaServer.Service
@@ -49,19 +50,19 @@ namespace Jellyfin.Plugin.DlnaServer.Service
             foreach (var item in actions)
             {
                 builder.Append("<action><name>")
-                    .Append(SecurityElement.Escape(item.Name))
+                    .Append(XmlUtilities.EncodeUrl(item.Name))
                     .Append("</name><argumentList>");
 
                 foreach (var argument in item.ArgumentList)
                 {
                     builder.Append("<argument><name>")
-                        .Append(SecurityElement.Escape(argument.Name))
+                        .Append(XmlUtilities.EncodeUrl(argument.Name))
                         .Append("</name>")
                         .Append("<direction>")
-                        .Append(SecurityElement.Escape(argument.Direction.ToString()))
+                        .Append(XmlUtilities.EncodeUrl(argument.Direction.ToString()))
                         .Append("</direction>")
                         .Append("<relatedStateVariable>")
-                        .Append(SecurityElement.Escape(argument.RelatedStateVariable.ToString()))
+                        .Append(XmlUtilities.EncodeUrl(argument.RelatedStateVariable.ToString()))
                         .Append("</relatedStateVariable></argument>");
                 }
 
@@ -88,9 +89,9 @@ namespace Jellyfin.Plugin.DlnaServer.Service
                 builder.Append("<stateVariable sendEvents=\"")
                     .Append(sendEvents)
                     .Append("\"><name>")
-                    .Append(SecurityElement.Escape(item.Name.ToString()))
+                    .Append(XmlUtilities.EncodeUrl(item.Name.ToString()))
                     .Append("</name><dataType>")
-                    .Append(SecurityElement.Escape(datatype))
+                    .Append(XmlUtilities.EncodeUrl(datatype))
                     .Append("</dataType>");
 
                 if (item.AllowedValues.Count > 0)
@@ -99,7 +100,7 @@ namespace Jellyfin.Plugin.DlnaServer.Service
                     foreach (var allowedValue in item.AllowedValues)
                     {
                         builder.Append("<allowedValue>")
-                            .Append(SecurityElement.Escape(allowedValue))
+                            .Append(XmlUtilities.EncodeUrl(allowedValue))
                             .Append("</allowedValue>");
                     }
 
