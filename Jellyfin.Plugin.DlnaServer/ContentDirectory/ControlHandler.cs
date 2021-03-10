@@ -1544,7 +1544,7 @@ namespace Jellyfin.Plugin.DlnaServer.ContentDirectory
             var paramsIndex = id.IndexOf(ParamsSrch, StringComparison.OrdinalIgnoreCase);
             if (paramsIndex != -1)
             {
-                id = id[(paramsIndex + ParamsSrch.Length) ..];
+                id = id[(paramsIndex + ParamsSrch.Length)..];
 
                 var parts = id.Split(';');
                 id = parts[23];

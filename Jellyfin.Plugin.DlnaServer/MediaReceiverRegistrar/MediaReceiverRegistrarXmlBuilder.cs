@@ -27,14 +27,14 @@ namespace Jellyfin.Plugin.DlnaServer.MediaReceiverRegistrar
         {
             var list = new List<StateVariable>
             {
-                new (StateVariableType.AuthorizationGrantedUpdateID, DataType.Dtui4, true),
-                new (StateVariableType.A_ARG_TYPE_DeviceID, DataType.Dtstring, false),
-                new (StateVariableType.AuthorizationDeniedUpdateID, DataType.Dtui4, true),
-                new (StateVariableType.ValidationSucceededUpdateID, DataType.Dtui4, true),
-                new (StateVariableType.A_ARG_TYPE_RegistrationRespMsg, DataType.Dtbin_base64, false),
-                new (StateVariableType.A_ARG_TYPE_RegistrationReqMsg, DataType.Dtbin_base64, false),
-                new (StateVariableType.ValidationRevokedUpdateID, DataType.Dtui4, true),
-                new (StateVariableType.A_ARG_TYPE_Result, DataType.Dtint, false)
+                new(StateVariableType.AuthorizationGrantedUpdateID, DataType.Dtui4, true),
+                new(StateVariableType.A_ARG_TYPE_DeviceID, DataType.Dtstring, false),
+                new(StateVariableType.AuthorizationDeniedUpdateID, DataType.Dtui4, true),
+                new(StateVariableType.ValidationSucceededUpdateID, DataType.Dtui4, true),
+                new(StateVariableType.A_ARG_TYPE_RegistrationRespMsg, DataType.Dtbin_base64, false),
+                new(StateVariableType.A_ARG_TYPE_RegistrationReqMsg, DataType.Dtbin_base64, false),
+                new(StateVariableType.ValidationRevokedUpdateID, DataType.Dtui4, true),
+                new(StateVariableType.A_ARG_TYPE_Result, DataType.Dtint, false)
             };
 
             return list;

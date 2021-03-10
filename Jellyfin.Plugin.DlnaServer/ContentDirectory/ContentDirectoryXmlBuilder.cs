@@ -27,19 +27,19 @@ namespace Jellyfin.Plugin.DlnaServer.ContentDirectory
         {
             return new List<StateVariable>
             {
-                new (StateVariableType.A_ARG_TYPE_Filter, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_Filter, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_SortCriteria, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_Index, DataType.Dtui4, false),
-                new (StateVariableType.A_ARG_TYPE_Count, DataType.Dtui4, false),
-                new (StateVariableType.A_ARG_TYPE_UpdateID, DataType.Dtui4, false),
-                new (StateVariableType.SearchCapabilities, DataType.Dtstring, false),
-                new (StateVariableType.SortCapabilities, DataType.Dtstring, false),
-                new (StateVariableType.SystemUpdateID, DataType.Dtui4, true),
-                new (StateVariableType.A_ARG_TYPE_SearchCriteria, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_Result, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_ObjectID, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_BrowseFlag, DataType.Dtstring, false)
+                new(StateVariableType.A_ARG_TYPE_Filter, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_Filter, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_SortCriteria, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_Index, DataType.Dtui4, false),
+                new(StateVariableType.A_ARG_TYPE_Count, DataType.Dtui4, false),
+                new(StateVariableType.A_ARG_TYPE_UpdateID, DataType.Dtui4, false),
+                new(StateVariableType.SearchCapabilities, DataType.Dtstring, false),
+                new(StateVariableType.SortCapabilities, DataType.Dtstring, false),
+                new(StateVariableType.SystemUpdateID, DataType.Dtui4, true),
+                new(StateVariableType.A_ARG_TYPE_SearchCriteria, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_Result, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_ObjectID, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_BrowseFlag, DataType.Dtstring, false)
                 {
                     AllowedValues = new[]
                     {
@@ -47,11 +47,11 @@ namespace Jellyfin.Plugin.DlnaServer.ContentDirectory
                         "BrowseDirectChildren"
                     }
                 },
-                new (StateVariableType.A_ARG_TYPE_BrowseLetter, DataType.Dtstring, false),
-                new (StateVariableType.A_ARG_TYPE_CategoryType, DataType.Dtui4, false),
-                new (StateVariableType.A_ARG_TYPE_RID, DataType.Dtui4, false),
-                new (StateVariableType.A_ARG_TYPE_PosSec, DataType.Dtui4, false),
-                new (StateVariableType.A_ARG_TYPE_Featurelist, DataType.Dtstring, false)
+                new(StateVariableType.A_ARG_TYPE_BrowseLetter, DataType.Dtstring, false),
+                new(StateVariableType.A_ARG_TYPE_CategoryType, DataType.Dtui4, false),
+                new(StateVariableType.A_ARG_TYPE_RID, DataType.Dtui4, false),
+                new(StateVariableType.A_ARG_TYPE_PosSec, DataType.Dtui4, false),
+                new(StateVariableType.A_ARG_TYPE_Featurelist, DataType.Dtstring, false)
             };
         }
     }

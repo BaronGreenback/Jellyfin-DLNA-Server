@@ -94,7 +94,7 @@ namespace Jellyfin.Plugin.DlnaServer.Service
                     .Append(XmlUtilities.EncodeUrl(datatype))
                     .Append("</dataType>");
 
-                if (item.AllowedValues.Count > 0)
+                if (item.AllowedValues?.Count > 0)
                 {
                     builder.Append("<allowedValueList>");
                     foreach (var allowedValue in item.AllowedValues)

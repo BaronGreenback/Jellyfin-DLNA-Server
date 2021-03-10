@@ -18,13 +18,10 @@ namespace Jellyfin.Plugin.DlnaServer.Eventing
     /// </summary>
     public class DlnaEventManager : IDlnaEventManager
     {
-        private readonly ConcurrentDictionary<string, EventSubscription> _subscriptions =
-            new ConcurrentDictionary<string, EventSubscription>(StringComparer.OrdinalIgnoreCase);
-
+        private readonly ConcurrentDictionary<string, EventSubscription> _subscriptions;
         private readonly ILogger _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-
-        private readonly CultureInfo _usCulture = new CultureInfo("en-US");
+        private readonly CultureInfo _usCulture = new("en-US");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DlnaEventManager"/> class.
@@ -35,6 +32,7 @@ namespace Jellyfin.Plugin.DlnaServer.Eventing
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _subscriptions = new(StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>

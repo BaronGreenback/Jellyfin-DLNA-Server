@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -14,6 +14,7 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,6 +25,7 @@
     <DebugSymbols>true</DebugSymbols>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+    
   <!-- Code Analyzers-->
 
   <ItemGroup>
@@ -52,7 +54,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.321">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
