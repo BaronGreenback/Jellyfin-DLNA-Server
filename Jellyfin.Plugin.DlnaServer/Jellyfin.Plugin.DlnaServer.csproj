@@ -84,6 +84,10 @@
   <ItemGroup>
     <Folder Include="Registrator\" />
   </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CodeAnalysisRuleSet>../jellyfin.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="del C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\*.* /q&#xD;&#xA;copy $(TargetPath) C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;copy C:\Code\Jellyfin.Plugin.Ssdp\Jellyfin.Plugin.Ssdp\bin\Debug\net5.0\Jellyfin.Plugin.Ssdp.dll C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;" />
