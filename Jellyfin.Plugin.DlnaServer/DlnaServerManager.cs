@@ -167,6 +167,7 @@ namespace Jellyfin.Plugin.DlnaServer
             return new DescriptionXmlBuilder(
                 config.EnableMSMediaReceiverRegistrar,
                 serverId,
+                _appHost.GetSmartApiUrl(request),
                 _appHost,
                 config.DlnaServerName).ToString();
         }

@@ -43,9 +43,9 @@
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG</DefineConstants>
-    <DocumentationFile>C:\Code\Jellyfin.Plugin.DLNAServer\Jellyfin.Plugin.DlnaServer\Jellyfin.Plugin.DlnaServer.xml</DocumentationFile>
-    <WarningsAsErrors>;NU1605;SA1201;</WarningsAsErrors>
+    <DefineConstants>DEBUG</DefineConstants>    
+    <WarningsAsErrors>;NU1605;SA1201;</WarningsAsErrors>    
+    <DocumentationFile>F:\Code\Jellyfin.Plugin.DlnaServer\Jellyfin.Plugin.DlnaServer\Jellyfin.Plugin.DlnaServer.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -90,7 +90,7 @@
   </PropertyGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\*.* /q&#xD;&#xA;copy $(TargetPath) C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;copy C:\Code\Jellyfin.Plugin.Ssdp\Jellyfin.Plugin.Ssdp\bin\Debug\net5.0\Jellyfin.Plugin.Ssdp.dll C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;" />
+    <Exec Command="del C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\*.* /q&#xD;&#xA;copy $(OutDir)\$(TargetFileName) C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;copy F:\Code\Jellyfin.Plugin.Ssdp\Jellyfin.Plugin.Ssdp\bin\Debug\net5.0\Jellyfin.Plugin.Ssdp.dll C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;" />
   </Target>
 
 </Project>
