@@ -32,11 +32,11 @@ namespace Jellyfin.Plugin.DlnaServer.Service
             {
                 writer.WriteStartDocument(true);
 
-                writer.WriteStartElement("SOAP-ENV", "Envelope", NsSoapEnv);
+                writer.WriteStartElement("s", "Envelope", NsSoapEnv);
                 writer.WriteAttributeString(string.Empty, "encodingStyle", NsSoapEnv, "http://schemas.xmlsoap.org/soap/encoding/");
 
-                writer.WriteStartElement("SOAP-ENV", "Body", NsSoapEnv);
-                writer.WriteStartElement("SOAP-ENV", "Fault", NsSoapEnv);
+                writer.WriteStartElement("s", "Body", NsSoapEnv);
+                writer.WriteStartElement("s", "Fault", NsSoapEnv);
 
                 writer.WriteElementString("faultcode", "500");
                 writer.WriteElementString("faultstring", ex?.Message);

@@ -50,19 +50,19 @@ namespace Jellyfin.Plugin.DlnaServer.Service
             foreach (var item in actions)
             {
                 builder.Append("<action><name>")
-                    .Append(XmlUtilities.EncodeUrl(item.Name))
+                    .Append(item.Name)
                     .Append("</name><argumentList>");
 
                 foreach (var argument in item.ArgumentList)
                 {
                     builder.Append("<argument><name>")
-                        .Append(XmlUtilities.EncodeUrl(argument.Name))
+                        .Append(argument.Name)
                         .Append("</name>")
                         .Append("<direction>")
-                        .Append(XmlUtilities.EncodeUrl(argument.Direction.ToString()))
+                        .Append(argument.Direction.ToString())
                         .Append("</direction>")
                         .Append("<relatedStateVariable>")
-                        .Append(XmlUtilities.EncodeUrl(argument.RelatedStateVariable.ToString()))
+                        .Append(argument.RelatedStateVariable.ToString())
                         .Append("</relatedStateVariable></argument>");
                 }
 
@@ -89,9 +89,9 @@ namespace Jellyfin.Plugin.DlnaServer.Service
                 builder.Append("<stateVariable sendEvents=\"")
                     .Append(sendEvents)
                     .Append("\"><name>")
-                    .Append(XmlUtilities.EncodeUrl(item.Name.ToString()))
+                    .Append(item.Name.ToString())
                     .Append("</name><dataType>")
-                    .Append(XmlUtilities.EncodeUrl(datatype))
+                    .Append(datatype)
                     .Append("</dataType>");
 
                 if (item.AllowedValues?.Count > 0)
@@ -100,7 +100,7 @@ namespace Jellyfin.Plugin.DlnaServer.Service
                     foreach (var allowedValue in item.AllowedValues)
                     {
                         builder.Append("<allowedValue>")
-                            .Append(XmlUtilities.EncodeUrl(allowedValue))
+                            .Append(allowedValue)
                             .Append("</allowedValue>");
                     }
 

@@ -214,10 +214,10 @@ namespace Jellyfin.Plugin.DlnaServer.Service
             {
                 writer.WriteStartDocument(true);
 
-                writer.WriteStartElement("SOAP-ENV", "Envelope", NsSoapEnv);
+                writer.WriteStartElement("s", "Envelope", NsSoapEnv);
                 writer.WriteAttributeString(string.Empty, "encodingStyle", NsSoapEnv, "http://schemas.xmlsoap.org/soap/encoding/");
 
-                writer.WriteStartElement("SOAP-ENV", "Body", NsSoapEnv);
+                writer.WriteStartElement("s", "Body", NsSoapEnv);
                 writer.WriteStartElement("u", requestInfo.LocalName + "Response", requestInfo.NamespaceUri);
 
                 WriteResult(requestInfo.LocalName, requestInfo.Headers, writer);
