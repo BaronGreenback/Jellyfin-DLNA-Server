@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    meta http-equiv="Pragma" content="no-cache">
+    <title>Dlna Server Settings</title>
+</head>
+<body>
+    <div id="DlnaServerConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="TemplateConfigForm">
+                    <div class="selectContainer">
+                        <div class="inputContainer">
+                            <input is="emby-input" id="AliveMessageIntervalSeconds" name="AliveMessageIntervalSeconds" type="number" min="1" max="65535" label="Announcement interval" />
+                            <div class="fieldDescription">The interval, in seconds, between network announcements.</div>
+                        </div>
+                        <div class="selectContainer">
+                            <label class="selectLabel" for="SelectUser">Default user:</label><select is="emby-select" id="SelectUser" data-mini="true" label="Default user:" class="emby-select-withcolor emby-select"></select>
+                            <div class="fieldDescription">Determines which user library should be displayed on connected devices. This can be overridden for each device using profiles.</div>
+                            <div class="selectArrowContainer"><div style="visibility:hidden;display:none;">0</div><span class="selectArrow material-icons keyboard_arrow_down"></span></div>
+                        </div>
+                        <div class="inputContainer">
+                            <input is="emby-input" id="UdpPortRange" name="UdpPortRange" type="string" label="Udp Port Range" />
+                            <div class="fieldDescription">Optional range of ports to limit communications. (UDP port 1900 will always be used)</div>
+                        </div>
+                        <div class="inputContainer">
+                            <input id="DlnaServerName" name="DlnaServerName" type="text" is="emby-input" label="Server Name" />
+                            <div class="fieldDescription">Optional name for the DLNA server.</div>
+                        </div>
+                        <div class="checkboxContainer checkboxContainer-withDescripton">
+                            <label class="emby-checkbox-label">
+                                <input id="EnableDebugLog" name="EnableDebugLog" type="checkbox" is="emby-checkbox" class="emby-checkbox" />
+                                <span class="checkboxLabel">Enable DLNA Debug Logging</span>
+                                <span class="checkboxOutline"><span class="material-icons checkboxIcon checkboxIcon-checked check"></span><span class="material-icons checkboxIcon checkboxIcon-unchecked "></span></span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">Log all DLNA packets. This options will create extremely large log files very quickly, and should only be used as needed for troubleshooting purposes. To view the output "Jellyfin.Plugin.Dlna.Server.DlnaServerManager" : "Debug" needs to be included in your <b>logging.default.json</b>.</div>
+                       </div>
+                        <div class="checkboxContainer checkboxContainer-withDescripton">
+                            <label class="emby-checkbox-label">
+                                <input id="EnableSsdpTracing" name="EnableSsdpTracing" type="checkbox" is="emby-checkbox" class="emby-checkbox" />
+                                <span class="checkboxLabel">Enable SSDP Tracing.</span>
+                                <span class="checkboxOutline"><span class="material-icons checkboxIcon checkboxIcon-checked check"></span><span class="material-icons checkboxIcon checkboxIcon-unchecked "></span></span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">Log all SSDP packets. These options will create extremely large log files very quickly, and should only be used as needed for troubleshooting purposes. To view the output "Jellyfin.Plugin.Dlna.Server.SsdpServer" : "Debug" needs to be included in your <b>logging.default.json</b>.</div></div>
+                        </div>
+                        <div class="inputContainer">
+                            <input id="SsdpTracingFilter" name="SsdpTracingFilter" type="text" is="emby-input" label="SSDP filter" />
+                            <div class="fieldDescription">Filter the logging to traffic coming from, or going to, the IP address provided.</div>
+                        </div>
+                        <div>
+                            <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                                <span>Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+                var TemplateConfig = {
+                    pluginUniqueId: '49f39d7e-9075-414f-a664-6763ab3362f9'
+                };
+
+                function loadPage(config, users) {
+                    document.querySelector('#EnableDebugLog').checked = config.EnableDebugLog;
+                    document.querySelector('#UdpPortRange').value = config.UdpPortRange;
+                    document.querySelector('#EnableSsdpTracing').checked = config.EnableSsdpTracing;
+                    document.querySelector('#SsdpTracingFilter').value = config.SsdpTracingFilter;
+                    document.querySelector('#AliveMessageIntervalSeconds').value = config.AliveMessageIntervalSeconds;
+                    if (config.DlnaServerName) {
+                        document.querySelector('#DlnaServerName').value = config.DlnaServerName;
+                    }
+                    usersHtml = users.map(function (u) {
+                        return '<option value="' + u.Id + '">' + u.Name + '</option>';
+                    }).join('');
+                    $('#SelectUser').html(usersHtml).val(config.DefaultUserId || '');
+                }
+
+                document.querySelector('#DlnaServerConfigPage')
+                    .addEventListener('pageshow', function () {
+                        Dashboard.showLoadingMsg();
+                        promise1 = ApiClient.getPluginConfiguration(TemplateConfig.pluginUniqueId);
+                        promise2 = ApiClient.getUsers();
+                        Promise.all([promise1, promise2]).then(function (responses) {
+                            loadPage(responses[0], responses[1]);
+                            Dashboard.hideLoadingMsg();
+                        });
+                    });
+
+                document.querySelector('#TemplateConfigForm')
+                    .addEventListener('submit', function (e) {
+                        Dashboard.showLoadingMsg();
+                        ApiClient.getPluginConfiguration(TemplateConfig.pluginUniqueId).then(function (config) {
+                            config.DlnaServerName = document.querySelector('#DlnaServerName').value;
+                            config.DefaultUserId = document.querySelector('#SelectUser').value;
+                            config.EnableDebugLog = document.querySelector('#EnableDebugLog').checked;
+                            config.EnableSsdpTracing = document.querySelector('#EnableSsdpTracing').checked;
+                            config.SsdpTracingFilter = document.querySelector('#SsdpTracingFilter').value;
+                            config.UdpPortRange = document.querySelector('#UdpPortRange').value;
+                            config.AliveMessageIntervalSeconds = document.querySelector('#AliveMessageIntervalSeconds').value;
+                            
+                            ApiClient.updatePluginConfiguration(TemplateConfig.pluginUniqueId, config).then(function (result) {
+                                Dashboard.processPluginConfigurationUpdateResult(result);
+                            });
+                        });
+
+                        e.preventDefault();
+                        return false;
+                    });
+            </script>
+        </div>
+    </div>
+</body>
+</html>

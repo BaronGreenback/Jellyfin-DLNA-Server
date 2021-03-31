@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Jellyfin.Plugin.Dlna.Server</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <nullable>enable</nullable>
+    <SignAssembly>false</SignAssembly>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>Jellyfin Team</Authors>
+    <Product>Jellyfin Team</Product>
+    <PackageId>Jellyfin DLNA Server Plugin</PackageId>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+    
+  <!-- Code Analyzers-->
+
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\configPage.html" />
+    <EmbeddedResource Include="Api\Images\logo120.jpg" />
+    <EmbeddedResource Include="Api\Images\logo120.png" />
+    <EmbeddedResource Include="Api\Images\logo240.jpg" />
+    <EmbeddedResource Include="Api\Images\logo240.png" />
+    <EmbeddedResource Include="Api\Images\logo48.jpg" />
+    <EmbeddedResource Include="Api\Images\logo48.png" />
+    <EmbeddedResource Include="Api\Images\people48.jpg" />
+    <EmbeddedResource Include="Api\Images\people48.png" />
+    <EmbeddedResource Include="Api\Images\people480.jpg" />
+    <EmbeddedResource Include="Api\Images\people480.png" />
+    <EmbeddedResource Include="ContentDirectory\ContentDirectory.xml" />
+    <EmbeddedResource Include="MediaReceiverRegistrar\MediaReceiverRegistrar.xml" />
+    <EmbeddedResource Include="ConnectionManager\ConnectionManager.xml" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>    
+    <WarningsAsErrors>;NU1605;SA1201;</WarningsAsErrors>    
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.321">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Jellyfin.Plugin.Dlna\Jellyfin.Plugin.Dlna\Jellyfin.Plugin.Dlna.csproj" />
+    <ProjectReference Include="..\..\jellyfin\Jellyfin.Api\Jellyfin.Api.csproj" />
+    <ProjectReference Include="..\..\Jellyfin\Jellyfin.DeviceProfiles\Jellyfin.DeviceProfiles.csproj" />
+    <ProjectReference Include="..\..\jellyfin\Jellyfin.Networking\Jellyfin.Networking.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CodeAnalysisRuleSet>../jellyfin.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\*.* /q&#xD;&#xA;copy $(OutDir)\$(TargetFileName) C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;copy F:\Code\Jellyfin.Plugin.Dlna\Jellyfin.Plugin.Dlna\bin\Debug\net5.0\Jellyfin.Plugin.Dlna.dll C:\ProgramData\Jellyfin\Server\plugins\Jelly.Plugin.DlnaServer_1.0.0.0\&#xD;&#xA;copy $(TargetDir)Jellyfin.Plugin.Dlna.Server.pdb f:\code\symbolcache\*.* /y" />
+  </Target>
+
+</Project>
