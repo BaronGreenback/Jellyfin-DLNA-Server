@@ -1,6 +1,6 @@
 DLNA Server as a plugin.
 
-Designed for Jellyfin 10.8
+Designed for Jellyfin 10.8 (https://github.com/jellyfin/jellyfin/pull/4543)
 
 - Faster implementation.
 - UDP port restrictions.
